@@ -16,9 +16,30 @@ from typing import Dict, Any, List, Union
 import json
 import json_repair
 
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 app = FastAPI()
+
+# Define CORS Configuration
+
+origins = [
+    "https://localhost",
+    "https://localhost:3000",
+    "https://localhost:8000",
+    "https://career-roadmap-five.vercel.app/",
+
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+
+)
 
 # load environment variable for groq
 load_dotenv()
