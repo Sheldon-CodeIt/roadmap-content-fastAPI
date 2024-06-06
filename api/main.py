@@ -15,7 +15,6 @@ from haystack import Pipeline, component
 from typing import Dict, Any, List, Union
 import json
 import json_repair
-import textwrap
 
 
 
