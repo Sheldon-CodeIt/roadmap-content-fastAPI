@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+haystack-ai
+langchain
+langchain_community
+langchain-groq
+json_repair
