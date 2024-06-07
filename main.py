@@ -28,7 +28,7 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "http://localhost:8000",
-    "https://career-roadmap-five.vercel.app/",
+    "https://career-roadmap-five.vercel.app",
 
 ]
 
