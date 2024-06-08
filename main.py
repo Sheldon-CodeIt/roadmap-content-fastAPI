@@ -65,7 +65,7 @@ def index():
 
 @app.post("/roadmap/")
 def create_roadmap(topic: Topic):
-    response = generate_quiz(topic.title)
+    response = generate_roadmap(topic.title)
     return response
 
 @app.post("/step-description/")
@@ -156,13 +156,13 @@ class QuizParser:
 
 
 # initialize pipeline
-quiz_generation_pipeline = Pipeline()
+roadmap_generation_pipeline = Pipeline()
 # add components to the pipeline
-quiz_generation_pipeline.add_component(
+roadmap_generation_pipeline.add_component(
     "prompt_builder", PromptBuilder(template=roadmap_template)
 )
 
-quiz_generation_pipeline.add_component(
+roadmap_generation_pipeline.add_component(
     "generator",
     OpenAIGenerator(
         api_key=Secret.from_token(os.environ["GROQ_API_KEY"]),
@@ -172,15 +172,15 @@ quiz_generation_pipeline.add_component(
     )
 )
 
-quiz_generation_pipeline.add_component("quiz_parser", QuizParser())
+roadmap_generation_pipeline.add_component("quiz_parser", QuizParser())
 
 # connect the components
-quiz_generation_pipeline.connect("prompt_builder", "generator")
-quiz_generation_pipeline.connect("generator", "quiz_parser")
+roadmap_generation_pipeline.connect("prompt_builder", "generator")
+roadmap_generation_pipeline.connect("generator", "quiz_parser")
 
 
-def generate_quiz(topic: str) -> Dict[str, Any]:
-    result =  quiz_generation_pipeline.run(
+def generate_roadmap(topic: str) -> Dict[str, Any]:
+    result =  roadmap_generation_pipeline.run(
         data={
                 "prompt_builder": {"topic": [topic]},
         },
